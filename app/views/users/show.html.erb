@@ -5,6 +5,16 @@
   </p>
   <div class="row">
     <div class="col-xs-3">
+      <% if @book.errors.any? %>
+<div id="error_explanation">
+<ul>
+<p><%= @book.errors.count %>errors prohibited this obj from being saved:</p>
+<% @book.errors.full_messages.each do |message| %>
+<li><%= message %></li>
+<% end %>
+</ul>
+</div>
+<% end %>
 <h2>User info </h2>
 
  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>  
@@ -21,25 +31,19 @@
 		</tr>
 	</tbody>
 </table>
-
+<div class="row">
 <% if @user.id == current_user.id %>
         <%= link_to '', edit_user_path, class:"col-xs-12 btn btn btn-default glyphicon glyphicon-wrench"  %>
     <% else %>
         <%= link_to '', user_path(current_user.id), class:"col-xs-12 btn btn btn-default glyphicon glyphicon-wrench"  %>
-    <% end %>
-
-
-<h2>New Book</h2>
+<% end %>
+</div>
+<h2>New book</h2>
 <%= form_for :book,url: (@book) do |f| %>
 
-<% if @book.errors.any? %>
-     <ul>
-      <% @book.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-     </ul>
-<% end %>
 
+
+<div class="row">
 <p>Title</p>
 <%= f.text_field :title,class:'col-xs-12' %>
 
@@ -52,6 +56,8 @@
 
 <% end %>
 </div>
+</div>
+
 <div class="col-xs-9">
  <table class="table table-hover table-inverse">
 	
